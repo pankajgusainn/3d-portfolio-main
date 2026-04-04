@@ -87,27 +87,26 @@ function SphereGeo({
         position={[0, 0, 1.2 * scale]}
         args={[0.15 * scale, 0.275 * scale]}
       />
-      {/* Sphere (plain) */}
-<mesh
+      <mesh
   castShadow
   receiveShadow
   scale={scale}
   geometry={sphereGeometry}
   rotation={[0.3, 1, 1]}
 >
+  {/* Base material */}
   <meshStandardMaterial color="#ffffff" />
-</mesh>
 
-{/* Front logo */}
-{material.map && (
-  <mesh position={[0, 0, 1.2 * scale]}>
-    <planeGeometry args={[1.5 * scale, 1.5 * scale]} />
-    <meshBasicMaterial map={material.map} transparent />
-  </mesh>
-)}
-    </RigidBody>
-  );
-}
+  {/* Logo on front */}
+  {material.map && (
+    <Decal
+      position={[0, 0, 1]}   // front of sphere
+      rotation={[0, 0, 0]}
+      scale={0.6}
+      map={material.map}
+    />
+  )}
+</mesh>
 
 type PointerProps = {
   vec?: THREE.Vector3;
