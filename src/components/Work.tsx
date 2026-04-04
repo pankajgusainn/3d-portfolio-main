@@ -8,7 +8,7 @@ const projects = [
     title: "Brainery",
     category: "AI-powered chatbot platform",
     tools: "Gemini API, Free to Use, Fast and Secured",
-    image: "/images/callhq.png",
+    image: "/images/braineryy.png",
     link: "https://braineryy.vercel.app",
   },
 ];
