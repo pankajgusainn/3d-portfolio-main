@@ -32,9 +32,15 @@ const imageUrls = [
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
-const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
+const sphereGeometry = new THREE.SphereGeometry(
+  1,
+  28,
+  28,
+  0,
+  Math.PI // only half wrap
+);
 
-const spheres = [...Array(30)].map(() => ({
+const spheres = [...Array(16)].map(() => ({
   scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
 }));
 
