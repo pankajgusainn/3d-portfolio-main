@@ -32,7 +32,13 @@ const imageUrls = [
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
-const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
+const sphereGeometry = new THREE.SphereGeometry(
+  1,
+  28,
+  28,
+  0,
+  Math.PI // only half wrap
+);
 
 type SphereProps = {
   vec?: THREE.Vector3;
