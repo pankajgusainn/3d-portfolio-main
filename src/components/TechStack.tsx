@@ -47,22 +47,11 @@ type SphereProps = {
 };
 
 function SphereGeo({
-  {/* Sphere (plain) */}
-<mesh
-  castShadow
-  receiveShadow
-  scale={scale}
-  geometry={sphereGeometry}
-  rotation={[0.3, 1, 1]}
->
-  <meshStandardMaterial color="#ffffff" />
-</mesh>
-
-{/* Front logo */}
-<mesh position={[0, 0, 1.2 * scale]}>
-  <planeGeometry args={[1.5 * scale, 1.5 * scale]} />
-  <meshBasicMaterial map={material.map} transparent />
-</mesh>
+  vec = new THREE.Vector3(),
+  scale,
+  r = THREE.MathUtils.randFloatSpread,
+  material,
+  isActive,
 }: SphereProps) {
   const api = useRef<RapierRigidBody | null>(null);
 
@@ -98,14 +87,24 @@ function SphereGeo({
         position={[0, 0, 1.2 * scale]}
         args={[0.15 * scale, 0.275 * scale]}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        scale={scale}
-        geometry={sphereGeometry}
-        material={material}
-        rotation={[0.3, 1, 1]}
-      />
+      {/* Sphere (plain) */}
+<mesh
+  castShadow
+  receiveShadow
+  scale={scale}
+  geometry={sphereGeometry}
+  rotation={[0.3, 1, 1]}
+>
+  <meshStandardMaterial color="#ffffff" />
+</mesh>
+
+{/* Front logo */}
+{material.map && (
+  <mesh position={[0, 0, 1.2 * scale]}>
+    <planeGeometry args={[1.5 * scale, 1.5 * scale]} />
+    <meshBasicMaterial map={material.map} transparent />
+  </mesh>
+)}
     </RigidBody>
   );
 }
