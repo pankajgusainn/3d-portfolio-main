@@ -21,7 +21,7 @@ const Career = () => {
               <h3>SEP 2025 - Present</h3>
             </div>
             <p>
-              Supporting a life sciences project application at LTIMindtree
+              Supporting a life sciences project applications at LTIMindtree
               Focused on system monitoring and incident resolution.
             </p>
           </div>
