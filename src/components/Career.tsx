@@ -21,7 +21,7 @@ const Career = () => {
               <h3>SEP 2025 - Present</h3>
             </div>
             <p>
-              Supporting a Japanese life sciences application at LTIMindtree
+              Supporting a life sciences project application at LTIMindtree
               Focused on system monitoring and incident resolution.
             </p>
           </div>
@@ -29,7 +29,7 @@ const Career = () => {
             <div className="career-info-in">
               <div className="career-role">
                 <h4>Han Digital</h4>
-                <h5>3 Months</h5>
+                <h5>Data Annotator</h5>
               </div>
               <h3>June 2025 - SEP 2025</h3>
             </div>
