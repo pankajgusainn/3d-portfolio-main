@@ -101,6 +101,8 @@ const WhatIDo = () => {
                 <div className="what-tags">GIT</div>
                 <div className="what-tags">Jenkins</div>
                 <div className="what-tags">Linux</div>
+                <div className="what-tags">BitBucket</div>
+                <div className="what-tags">Git Bash</div>
               </div>
               <div className="what-arrow"></div>
             </div>
