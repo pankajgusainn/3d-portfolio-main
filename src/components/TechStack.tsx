@@ -34,7 +34,7 @@ const textures = imageUrls.map((url) => textureLoader.load(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
-const spheres = [...Array(16)].map(() => ({
+const spheres = [...Array(30)].map(() => ({
   scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
 }));
 
@@ -88,25 +88,16 @@ function SphereGeo({
         args={[0.15 * scale, 0.275 * scale]}
       />
       <mesh
-  castShadow
-  receiveShadow
-  scale={scale}
-  geometry={sphereGeometry}
-  rotation={[0.3, 1, 1]}
->
-  {/* Base material */}
-  <meshStandardMaterial color="#ffffff" />
-
-  {/* Logo on front */}
-  {material.map && (
-    <Decal
-      position={[0, 0, 1]}   // front of sphere
-      rotation={[0, 0, 0]}
-      scale={0.6}
-      map={material.map}
-    />
-  )}
-</mesh>
+        castShadow
+        receiveShadow
+        scale={scale}
+        geometry={sphereGeometry}
+        material={material}
+        rotation={[0.3, 1, 1]}
+      />
+    </RigidBody>
+  );
+}
 
 type PointerProps = {
   vec?: THREE.Vector3;
