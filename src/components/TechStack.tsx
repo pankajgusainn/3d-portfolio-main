@@ -32,11 +32,17 @@ const imageUrls = [
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
-new THREE.MeshStandardMaterial({
-  map: texture,
-  transparent: true,
-  alphaTest: 0.5
-});
+{/* Front */}
+<mesh position={[0, 0, 1.2 * scale]}>
+  <planeGeometry args={[1.5 * scale, 1.5 * scale]} />
+  <meshBasicMaterial map={texture} transparent />
+</mesh>
+
+{/* Back */}
+<mesh position={[0, 0, -1.2 * scale]} rotation={[0, Math.PI, 0]}>
+  <planeGeometry args={[1.5 * scale, 1.5 * scale]} />
+  <meshBasicMaterial map={texture} transparent />
+</mesh>
 
 const spheres = [...Array(16)].map(() => ({
   scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
