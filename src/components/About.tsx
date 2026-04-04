@@ -6,11 +6,12 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          I am currently co-founder of CallHQ.ai, building real-time voice AI for
-          businesses. I am a technologist at heart with strong business judgment—
-          I enjoy going from product strategy to hands-on engineering. My background
-          spans leadership at Adobe, founding Broki and CallHQ, and shipping
-          full-stack products end to end.
+          I am an Associate Consultant at LTIMindtree with a strong focus on DevOps,
+          cloud technologies, and automation. I specialize in building scalable and 
+          reliable infrastructure using modern DevOps practices, with hands-on experience
+          in CI/CD and deployment tools. I am also bilingual with JLPT N2 proficiency in
+          Japanese, enabling effective collaboration in global environments. I am passionate
+          about continuous learning and delivering high-quality, impactful solutions.
         </p>
       </div>
     </div>

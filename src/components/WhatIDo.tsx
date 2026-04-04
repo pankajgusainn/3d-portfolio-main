@@ -87,20 +87,20 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>AI & AUTOMATION</h3>
+              <h3>Cloud and DevOps</h3>
               <h4>Workflow Intelligence for Organizations</h4>
               <p>
-                AI specialist helping organizations automate workflows—internal ops
-                and customer-facing—so teams ship faster with less manual work.
+                I work with cloud and DevOps technologies to build and manage scalable, 
+                reliable systems. Focused on automation, CI/CD pipelines
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">LLMs &amp; agents</div>
-                <div className="what-tags">Workflow design</div>
-                <div className="what-tags">RAG &amp; retrieval</div>
-                <div className="what-tags">Evals &amp; guardrails</div>
-                <div className="what-tags">Integrations</div>
-                <div className="what-tags">Product strategy</div>
+                <div className="what-tags">AWS</div>
+                <div className="what-tags">Docker</div>
+                <div className="what-tags">Kubernetes</div>
+                <div className="what-tags">GIT</div>
+                <div className="what-tags">Jenkins</div>
+                <div className="what-tags">Linux</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -124,21 +124,21 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>BUILD &amp; SCALE</h3>
-              <h4>Shipping AI in Production</h4>
+              <h3>Japanese Language</h3>
+              <h4>JLPT N2 Proficiency</h4>
               <p>
-                I build the systems behind it: APIs, data, voice/real-time, and
-                full-stack products—production-ready, not slide decks.
+                Japanese bilingual (JLPT N2) with professional communication skills.
+                Capable of working effectively in global and Japanese business environments.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Certification & Skills</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Python</div>
-                <div className="what-tags">REST &amp; real-time APIs</div>
-                <div className="what-tags">PostgreSQL</div>
-                <div className="what-tags">MongoDB</div>
-                <div className="what-tags">React</div>
-                <div className="what-tags">Cloud &amp; infra</div>
+                <div className="what-tags">JLPT N2</div>
+                <div className="what-tags">NAT Q3</div>
+                <div className="what-tags">Kanji/漢字</div>
+                <div className="what-tags">Reading</div>
+                <div className="what-tags">Writing</div>
+                <div className="what-tags">Translate</div>
+                <div className="what-tags">Interpreter</div>
               </div>
               <div className="what-arrow"></div>
             </div>
