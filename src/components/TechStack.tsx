@@ -16,6 +16,7 @@ const imageUrls = [
   "/images/aws.webp",
   "/images/cicd.webp",
   "/images/docker.webp",
+  "/images/github.webp",
   "/images/jenkins.webp",
   "/images/kubernetes.webp",
   "/images/linux.webp",
