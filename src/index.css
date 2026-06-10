@@ -160,7 +160,7 @@ body {
   animation: scrollSkills 25s linear infinite;
 }
 
-.skills-track span {
+..skills-track span {
   display: inline-block;
   margin: 0 28px;
 
@@ -177,14 +177,4 @@ body {
     0 0 28px rgba(180, 140, 255, 0.2);
 
   transition: all 0.3s ease;
-}
-.dot {
-  color: #b388ff;
-
-  text-shadow:
-    0 0 10px #b388ff,
-    0 0 20px #b388ff,
-    0 0 35px #b388ff;
-
-  font-size: 30px;
 }
