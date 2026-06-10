@@ -18,6 +18,7 @@ const imageUrls = [
   "/images/docker.webp",
   "/images/github.webp",
   "/images/gitlab.webp",
+  "/images/python.webp",
   "/images/grafana.webp",
   "/images/jenkins.webp",
   "/images/kubernetes.webp",
@@ -259,6 +260,19 @@ const TechStack = () => {
   <span>•</span>
 
   <span>AWS CLI</span>
+  <span>•</span>
+
+  <span>Grafana</span>
+  <span>•</span>
+
+  <span>Python</span>
+  <span>•</span>
+
+  <span>GitLab</span>
+  <span>•</span>
+
+  <span>GitHub</span>
+
         </div>
       </div>
 
