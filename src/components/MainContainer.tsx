@@ -1,7 +1,7 @@
 import { lazy, PropsWithChildren, Suspense, useEffect, useState } from "react";
 import About from "./About";
 import Career from "./Career";
-import Certification from "./Certification";
+import Certification from "./certification";
 import Contact from "./Contact";
 import Cursor from "./Cursor";
 import Landing from "./Landing";
