@@ -214,66 +214,36 @@ const TechStack = () => {
 
       <div className="skills-ticker">
         <div className="skills-track">
-           <span>AWS</span>
-  <span>•</span>
 
-  <span>Docker</span>
-  <span>•</span>
-
-  <span>Kubernetes</span>
-  <span>•</span>
-
-  <span>Jenkins</span>
-  <span>•</span>
-
-  <span>Terraform</span>
-  <span>•</span>
-
-  <span>Linux</span>
-  <span>•</span>
-
-  <span>CI/CD</span>
-  <span>•</span>
-
-  <span>AWS CLI</span>
-  <span>•</span>
-
-  <span>AWS</span>
-  <span>•</span>
-
-  <span>Docker</span>
-  <span>•</span>
-
-  <span>Kubernetes</span>
-  <span>•</span>
-
-  <span>Jenkins</span>
-  <span>•</span>
-
-  <span>Terraform</span>
-  <span>•</span>
-
-  <span>Linux</span>
-  <span>•</span>
-
-  <span>CI/CD</span>
-  <span>•</span>
-
-  <span>Grafana</span>
-  <span>•</span>
-
-  <span>Python</span>
-  <span>•</span>
-
-  <span>GitLab</span>
-  <span>•</span>
-
-  <span>GitHub</span>
-  <span>•</span>
-
+  {/* COPY 1 */}
+  <span>AWS</span><span>•</span>
+  <span>Docker</span><span>•</span>
+  <span>Kubernetes</span><span>•</span>
+  <span>Jenkins</span><span>•</span>
+  <span>Terraform</span><span>•</span>
+  <span>Linux</span><span>•</span>
+  <span>CI/CD</span><span>•</span>
+  <span>Grafana</span><span>•</span>
+  <span>Python</span><span>•</span>
+  <span>GitLab</span><span>•</span>
+  <span>GitHub</span><span>•</span>
   <span>AWS CLI</span>
 
-        </div>
+  {/* COPY 2 (IMPORTANT: EXACT SAME) */}
+  <span>AWS</span><span>•</span>
+  <span>Docker</span><span>•</span>
+  <span>Kubernetes</span><span>•</span>
+  <span>Jenkins</span><span>•</span>
+  <span>Terraform</span><span>•</span>
+  <span>Linux</span><span>•</span>
+  <span>CI/CD</span><span>•</span>
+  <span>Grafana</span><span>•</span>
+  <span>Python</span><span>•</span>
+  <span>GitLab</span><span>•</span>
+  <span>GitHub</span><span>•</span>
+  <span>AWS CLI</span>
+
+</div>
       </div>
 
     </div>
