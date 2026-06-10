@@ -160,21 +160,27 @@ body {
   animation: scrollSkills 25s linear infinite;
 }
 
-..skills-track span {
-  display: inline-block;
-  margin: 0 28px;
-
-  font-size: 28px;
+.skills-track span {
+  font-size: 1rem;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 
-  color: rgba(220, 200, 255, 0.95);
+  color: #cdb4f5;
 
   text-shadow:
-    0 0 8px rgba(180, 140, 255, 0.7),
-    0 0 18px rgba(180, 140, 255, 0.4),
-    0 0 28px rgba(180, 140, 255, 0.2);
+    0 0 8px rgba(205, 180, 245, 0.6),
+    0 0 16px rgba(205, 180, 245, 0.4);
 
-  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+@keyframes scrollSkills {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
