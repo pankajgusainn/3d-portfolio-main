@@ -259,9 +259,6 @@ const TechStack = () => {
   <span>CI/CD</span>
   <span>•</span>
 
-  <span>AWS CLI</span>
-  <span>•</span>
-
   <span>Grafana</span>
   <span>•</span>
 
@@ -272,9 +269,12 @@ const TechStack = () => {
   <span>•</span>
 
   <span>GitHub</span>
+  <span>•</span>
 
-         </div>
-       </div>
+  <span>AWS CLI</span>
+
+        </div>
+      </div>
 
     </div>
   );
