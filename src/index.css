@@ -135,3 +135,52 @@ body {
     font-size: 40px;
   }
 }
+.skills-ticker {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+
+  padding: 12px 0;
+
+  background: rgba(255, 255, 255, 0.03);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(8px);
+}
+
+.skills-track {
+  display: flex;
+  width: max-content;
+  gap: 60px;
+
+  animation: scrollSkills 25s linear infinite;
+}
+
+.skills-track span {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #cdb4f5;
+
+  text-shadow:
+    0 0 8px rgba(205, 180, 245, 0.6),
+    0 0 16px rgba(205, 180, 245, 0.4);
+
+  white-space: nowrap;
+}
+
+@keyframes scrollSkills {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
