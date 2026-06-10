@@ -1,0 +1,45 @@
+.certification-section {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.certification-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  padding: 20px 30px;
+
+  text-decoration: none;
+  color: inherit;
+
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 16px;
+
+  transition: all 0.3s ease;
+}
+
+.certification-card:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(94, 234, 212, 0.5);
+}
+
+.certification-card img {
+  width: 110px;
+  height: auto;
+}
+
+.certification-info h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.certification-info p {
+  margin-top: 8px;
+  color: var(--accentColor);
+}
