@@ -161,26 +161,30 @@ body {
 }
 
 .skills-track span {
-  font-size: 1rem;
+  display: inline-block;
+  margin: 0 28px;
+
+  font-size: 28px;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 
-  color: #cdb4f5;
+  color: rgba(220, 200, 255, 0.95);
 
   text-shadow:
-    0 0 8px rgba(205, 180, 245, 0.6),
-    0 0 16px rgba(205, 180, 245, 0.4);
+    0 0 8px rgba(180, 140, 255, 0.7),
+    0 0 18px rgba(180, 140, 255, 0.4),
+    0 0 28px rgba(180, 140, 255, 0.2);
 
-  white-space: nowrap;
+  transition: all 0.3s ease;
 }
+.dot {
+  color: #b388ff;
 
-@keyframes scrollSkills {
-  from {
-    transform: translateX(0);
-  }
+  text-shadow:
+    0 0 10px #b388ff,
+    0 0 20px #b388ff,
+    0 0 35px #b388ff;
 
-  to {
-    transform: translateX(-50%);
-  }
+  font-size: 30px;
 }
