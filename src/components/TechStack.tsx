@@ -203,10 +203,33 @@ const TechStack = () => {
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
-        <EffectComposer enableNormalPass={false}>
+                <EffectComposer enableNormalPass={false}>
           <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
         </EffectComposer>
       </Canvas>
+
+      <div className="skills-ticker">
+        <div className="skills-track">
+          <span>AWS</span>
+          <span>Docker</span>
+          <span>Kubernetes</span>
+          <span>Jenkins</span>
+          <span>Terraform</span>
+          <span>Linux</span>
+          <span>CI/CD</span>
+          <span>AWS CLI</span>
+
+          <span>AWS</span>
+          <span>Docker</span>
+          <span>Kubernetes</span>
+          <span>Jenkins</span>
+          <span>Terraform</span>
+          <span>Linux</span>
+          <span>CI/CD</span>
+          <span>AWS CLI</span>
+        </div>
+      </div>
+
     </div>
   );
 };
