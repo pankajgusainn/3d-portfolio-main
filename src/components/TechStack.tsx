@@ -210,23 +210,52 @@ const TechStack = () => {
 
       <div className="skills-ticker">
         <div className="skills-track">
-          <span>AWS</span>
-          <span>Docker</span>
-          <span>Kubernetes</span>
-          <span>Jenkins</span>
-          <span>Terraform</span>
-          <span>Linux</span>
-          <span>CI/CD</span>
-          <span>AWS CLI</span>
+           <span>AWS</span>
+  <span>•</span>
 
-          <span>AWS</span>
-          <span>Docker</span>
-          <span>Kubernetes</span>
-          <span>Jenkins</span>
-          <span>Terraform</span>
-          <span>Linux</span>
-          <span>CI/CD</span>
-          <span>AWS CLI</span>
+  <span>Docker</span>
+  <span>•</span>
+
+  <span>Kubernetes</span>
+  <span>•</span>
+
+  <span>Jenkins</span>
+  <span>•</span>
+
+  <span>Terraform</span>
+  <span>•</span>
+
+  <span>Linux</span>
+  <span>•</span>
+
+  <span>CI/CD</span>
+  <span>•</span>
+
+  <span>AWS CLI</span>
+  <span>•</span>
+
+  <span>AWS</span>
+  <span>•</span>
+
+  <span>Docker</span>
+  <span>•</span>
+
+  <span>Kubernetes</span>
+  <span>•</span>
+
+  <span>Jenkins</span>
+  <span>•</span>
+
+  <span>Terraform</span>
+  <span>•</span>
+
+  <span>Linux</span>
+  <span>•</span>
+
+  <span>CI/CD</span>
+  <span>•</span>
+
+  <span>AWS CLI</span>
         </div>
       </div>
 
