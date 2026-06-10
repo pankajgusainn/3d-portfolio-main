@@ -273,8 +273,8 @@ const TechStack = () => {
 
   <span>GitHub</span>
 
-        </div>
-      </div>
+         </div>
+       </div>
 
     </div>
   );
