@@ -11,6 +11,19 @@ const Career = () => {
         <div className="career-info">
           <div className="career-timeline">
             <div className="career-dot"></div>
+            </div>
+          <div className="career-info-box">
+            <div className="career-info-in">
+              <div className="career-role">
+                <h4>Consultant - System Management</h4>
+                <h5>LTM</h5>
+              </div>
+              <h3>AUGUST 2026 - Present</h3>
+            </div>
+            <p>
+              Supporting Enterprise-level applications at LTIMindtree, Responsible for System
+              monitoring, incident Handling, Troubleshooting and resolution of application Issues.
+            </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
@@ -18,7 +31,7 @@ const Career = () => {
                 <h4>Associate Consultant</h4>
                 <h5>LTIMindtree</h5>
               </div>
-              <h3>SEP 2025 - Present</h3>
+              <h3>SEP 2025 - JULY 2026</h3>
             </div>
             <p>
               Supporting a life sciences project applications at LTIMindtree
