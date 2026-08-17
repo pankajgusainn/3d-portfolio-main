@@ -4,7 +4,7 @@ import "./App.css";
 const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
 import { LoadingProvider } from "./context/LoadingProvider";
-
+import ChatBot from "./ChatBot";
 const App = () => {
   return (
     <>
@@ -16,6 +16,8 @@ const App = () => {
             </Suspense>
           </MainContainer>
         </Suspense>
+
+        <ChatBot />
       </LoadingProvider>
     </>
   );
