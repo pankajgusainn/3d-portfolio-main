@@ -43,11 +43,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatWindowRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-  messagesEndRef.current?.scrollIntoView({
-    behavior: "smooth",
-  });
-}, [messages, loading]);
+  const shouldScrollToNewPrompt = useRef(false);
 
 useEffect(() => {
   if (!open) return;
@@ -87,6 +83,12 @@ useEffect(() => {
         text: userMessage,
       },
     ]);
+   
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }, 0);
 
     setLoading(true);
 
