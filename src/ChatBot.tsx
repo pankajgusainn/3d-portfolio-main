@@ -105,24 +105,71 @@ ${userMessage}`,
 });
 
 if (!response.ok) {
-  const errorData = await response.json().catch(() => null);
+  const errorText = await response.text();
 
   throw new Error(
-    errorData?.error || `Backend request failed: ${response.status}`
+    errorText || `Backend request failed: ${response.status}`
   );
 }
 
-const data = await response.json();
+if (!response.body) {
+  throw new Error("Streaming response is not available");
+}
 
-const aiResponse = data.text || "The AI returned an empty response.";
+const reader = response.body.getReader();
+const decoder = new TextDecoder();
 
+let aiResponse = "";
+
+// Create the AI message immediately.
 setMessages((prev) => [
   ...prev,
   {
     role: "ai",
-    text: aiResponse,
+    text: "",
   },
 ]);
+
+while (true) {
+  const { done, value } = await reader.read();
+
+  if (done) break;
+
+  const chunk = decoder.decode(value, {
+    stream: true,
+  });
+
+  aiResponse += chunk;
+
+  setMessages((prev) => {
+    const updated = [...prev];
+
+    updated[updated.length - 1] = {
+      role: "ai",
+      text: aiResponse,
+    };
+
+    return updated;
+  });
+}
+
+// Flush any remaining decoder data.
+const remaining = decoder.decode();
+
+if (remaining) {
+  aiResponse += remaining;
+
+  setMessages((prev) => {
+    const updated = [...prev];
+
+    updated[updated.length - 1] = {
+      role: "ai",
+      text: aiResponse,
+    };
+
+    return updated;
+  });
+}
 
     } catch (error) {
       console.error("Gemini error:", error);
