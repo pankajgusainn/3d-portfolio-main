@@ -43,7 +43,6 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatWindowRef = useRef<HTMLDivElement>(null);
-  const shouldScrollToNewPrompt = useRef(false);
 
 useEffect(() => {
   if (!open) return;
