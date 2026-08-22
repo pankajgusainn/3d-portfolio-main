@@ -2,7 +2,9 @@ import { GoogleGenAI } from "@google/genai";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({
+      error: "Method not allowed",
+    });
   }
 
   try {
@@ -20,7 +22,7 @@ export default async function handler(req: any, res: any) {
       console.error("GEMINI_API_KEY is missing");
 
       return res.status(500).json({
-        error: "Server API key is not configured",
+        error: "GEMINI_API_KEY is not configured",
       });
     }
 
@@ -28,66 +30,163 @@ export default async function handler(req: any, res: any) {
       apiKey,
     });
 
-    const responseStream = await ai.models.generateContentStream({
-      model: "gemini-3.5-flash",
-      contents: `You are a helpful, intelligent AI assistant.
+    const prompt = `
+You are the AI assistant for Pankaj's personal portfolio website.
 
-Answer the user's question accurately, clearly, and in sufficient detail.
+You are a helpful, intelligent, accurate, and conversational AI assistant.
 
-IMPORTANT RESPONSE STYLE:
+Your goal is to provide the most useful answer possible while keeping the response natural, clear, and easy to read.
 
-- Give a complete answer rather than an unnecessarily short answer.
-- For simple questions, be concise but still explain the important details.
-- For complex questions, provide a thorough and well-organized explanation.
-- Break long answers into clear sections.
-- Use Markdown formatting.
-- Use headings when they improve readability.
-- Use short paragraphs instead of large blocks of text.
-- Use bullet points for lists.
-- Use numbered lists for procedures and step-by-step instructions.
-- Use **bold** for important terms and concepts.
-- Use inline code for commands, filenames, variables, functions, and technical terms when appropriate.
-- Use fenced code blocks for programming code.
-- Leave a blank line between paragraphs and sections.
-- Use tables when comparing multiple items.
-- Explain technical concepts with examples when useful.
-- When giving instructions, show the exact command or action and explain what it does.
+## GENERAL RESPONSE RULES
+
+- Answer the user's actual question directly.
 - Do not unnecessarily repeat the user's question.
-- Do not add artificial sections such as "Key Points" or "Summary" unless they are genuinely useful.
-- Do not turn every response into a rigid template.
-- Make the response natural and conversational while maintaining excellent structure.
-- Prioritize useful, detailed answers over extremely short answers.
+- Be accurate and honest.
+- Never invent facts, sources, URLs, APIs, commands, features, or capabilities.
+- If you are uncertain, clearly say so.
+- Adapt the level of detail to the complexity of the question.
+- Avoid unnecessary introductions.
+- Avoid unnecessary repetition.
+- Maintain context when provided.
 
-The response must be valid Markdown that can be rendered directly in the chat interface.
+## RESPONSE LENGTH
+
+For simple questions:
+- Give a direct answer.
+- Keep it concise.
+
+For moderate questions:
+- Give a clear explanation.
+- Use bullets or sections when useful.
+- Include examples when helpful.
+
+For complex questions:
+- Give a thorough and well-organized answer.
+- Explain important trade-offs and edge cases.
+- Use examples where appropriate.
+
+Never make a response longer merely to appear detailed.
+
+## MARKDOWN
+
+Return valid Markdown.
+
+Use:
+
+- ## headings when useful
+- ### headings when necessary
+- Bullet lists
+- Numbered lists for procedures
+- **Bold** for important concepts
+- *Italics* sparingly
+- \`inline code\` for commands, filenames, functions, variables, and technical terms
+- Fenced code blocks for multi-line code
+- Tables when useful
+
+Do not over-format ordinary conversation.
+
+## PROGRAMMING QUESTIONS
+
+When answering programming questions:
+
+- Give practical and correct code.
+- Use fenced code blocks.
+- Preserve the user's existing approach when possible.
+- Explain important changes.
+- Mention dependencies when relevant.
+- Point out important bugs or security issues.
+- Do not invent APIs or configuration options.
+
+## TROUBLESHOOTING
+
+When troubleshooting:
+
+1. Identify the likely cause.
+2. Explain why it happens.
+3. Give the simplest fix.
+4. Give alternatives when necessary.
+5. Include useful diagnostic commands.
+
+Do not pretend certainty when the evidence does not support it.
+
+## CONVERSATIONAL BEHAVIOR
+
+Be natural and conversational.
+
+For simple questions, be concise.
+
+For technical questions, be structured and precise.
+
+Match the user's level of knowledge.
 
 User's question:
-${message}`,
+
+${message}
+`;
+
+    console.log("Sending request to Gemini...");
+
+    const responseStream = await ai.models.generateContentStream({
+      model: "gemini-3.5-flash",
+      contents: prompt,
     });
 
-    // Tell the browser that we're sending a stream.
-    res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
-    res.setHeader("Connection", "keep-alive");
+    res.statusCode = 200;
 
-    // Send each Gemini chunk immediately.
+    res.setHeader(
+      "Content-Type",
+      "text/plain; charset=utf-8"
+    );
+
+    res.setHeader(
+      "Cache-Control",
+      "no-cache, no-transform"
+    );
+
+    res.setHeader(
+      "X-Accel-Buffering",
+      "no"
+    );
+
+    let hasStartedStreaming = false;
+
     for await (const chunk of responseStream) {
       const text = chunk.text || "";
 
-      if (text) {
-        res.write(text);
+      if (!text) {
+        continue;
       }
+
+      hasStartedStreaming = true;
+
+      res.write(text);
     }
 
-    res.end();
-  } catch (error) {
-    console.error("Gemini API streaming error:", error);
+    console.log("Gemini response completed successfully.");
 
-    if (!res.headersSent) {
-      return res.status(500).json({
-        error: "Failed to generate response",
-      });
+    res.end();
+  } catch (error: unknown) {
+    console.error("========== GEMINI API ERROR ==========");
+    console.error(error);
+    console.error("======================================");
+
+    /*
+     * If streaming has already started, we cannot change the
+     * HTTP status to 500. End the stream instead.
+     */
+    if (res.headersSent) {
+      res.end();
+      return;
     }
 
-    res.end();
+    let errorMessage = "Failed to generate response";
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
+    return res.status(500).json({
+      error: errorMessage,
+    });
   }
 }
