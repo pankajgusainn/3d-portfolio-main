@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 import "./ChatBot.css";
 import MessageContent from "./components/chat/MessageContent";
 
@@ -61,51 +60,39 @@ const ChatBot = () => {
     setLoading(true);
 
     try {
-      const ai = new GoogleGenAI({
-        apiKey: import.meta.env.VITE_GEMINI_API_KEY,
-      });
-
-const responseStream = await ai.models.generateContentStream({
-  model: "gemini-3.5-flash",
-  contents: `${SYSTEM_PROMPT}
+const response = await fetch("/api/chat", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    message: `${SYSTEM_PROMPT}
 
 User question:
 ${userMessage}`,
-  config: {
-    thinkingConfig: {
-      thinkingLevel: ThinkingLevel.MINIMAL,
-    },
-  },
+  }),
 });
 
-let aiResponse = "";
+if (!response.ok) {
+  const errorData = await response.json().catch(() => null);
+
+  throw new Error(
+    errorData?.error || `Backend request failed: ${response.status}`
+  );
+}
+
+const data = await response.json();
+
+const aiResponse = data.text || "The AI returned an empty response.";
 
 setMessages((prev) => [
   ...prev,
   {
     role: "ai",
-    text: "",
+    text: aiResponse,
   },
 ]);
 
-for await (const chunk of responseStream) {
-  const text = chunk.text || "";
-
-  aiResponse += text;
-
-  const formattedResponse = aiResponse.trim();
-
-  setMessages((prev) => {
-    const updated = [...prev];
-
-    updated[updated.length - 1] = {
-      role: "ai",
-      text: formattedResponse,
-    };
-
-    return updated;
-  });
-}
     } catch (error) {
       console.error("Gemini error:", error);
 
