@@ -44,29 +44,29 @@ const ChatBot = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatWindowRef = useRef<HTMLDivElement>(null);
 
-useEffect(() => {
-  if (!open) return;
+  useEffect(() => {
+    if (!open) return;
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      chatWindowRef.current &&
-      !chatWindowRef.current.contains(event.target as Node)
-    ) {
-      setOpen(false);
-    }
-  };
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        chatWindowRef.current &&
+        !chatWindowRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, [open]);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
   const clearChat = () => {
-  setMessages([]);
-  setInput("");
-};
+    setMessages([]);
+    setInput("");
+  };
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -82,96 +82,107 @@ useEffect(() => {
         text: userMessage,
       },
     ]);
-   
+
+    // Scroll to the newly submitted prompt only.
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({
         behavior: "smooth",
+        block: "end",
       });
-    }, 0);
+    }, 50);
 
     setLoading(true);
 
     try {
-const response = await fetch("/api/chat", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    message: `${SYSTEM_PROMPT}
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: `${SYSTEM_PROMPT}
 
 User question:
 ${userMessage}`,
-  }),
-});
+        }),
+      });
 
-if (!response.ok) {
-  const errorText = await response.text();
+      if (!response.ok) {
+        const errorText = await response.text();
 
-  throw new Error(
-    errorText || `Backend request failed: ${response.status}`
-  );
-}
+        throw new Error(
+          errorText || `Backend request failed: ${response.status}`
+        );
+      }
 
-if (!response.body) {
-  throw new Error("Streaming response is not available");
-}
+      if (!response.body) {
+        throw new Error("Streaming response is not available.");
+      }
 
-const reader = response.body.getReader();
-const decoder = new TextDecoder();
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
 
-let aiResponse = "";
+      let aiResponse = "";
 
-// Create the AI message immediately.
-setMessages((prev) => [
-  ...prev,
-  {
-    role: "ai",
-    text: "",
-  },
-]);
+      // Create empty AI message immediately.
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "ai",
+          text: "",
+        },
+      ]);
 
-while (true) {
-  const { done, value } = await reader.read();
+      while (true) {
+        const { done, value } = await reader.read();
 
-  if (done) break;
+        if (done) break;
 
-  const chunk = decoder.decode(value, {
-    stream: true,
-  });
+        const chunk = decoder.decode(value, {
+          stream: true,
+        });
 
-  aiResponse += chunk;
+        if (!chunk) continue;
 
-  setMessages((prev) => {
-    const updated = [...prev];
+        aiResponse += chunk;
 
-    updated[updated.length - 1] = {
-      role: "ai",
-      text: aiResponse,
-    };
+        setMessages((prev) => {
+          const updated = [...prev];
 
-    return updated;
-  });
-}
+          const lastMessage = updated[updated.length - 1];
 
-// Flush any remaining decoder data.
-const remaining = decoder.decode();
+          if (lastMessage?.role === "ai") {
+            updated[updated.length - 1] = {
+              role: "ai",
+              text: aiResponse,
+            };
+          }
 
-if (remaining) {
-  aiResponse += remaining;
+          return updated;
+        });
+      }
 
-  setMessages((prev) => {
-    const updated = [...prev];
+      // Flush any remaining decoder data.
+      const remaining = decoder.decode();
 
-    updated[updated.length - 1] = {
-      role: "ai",
-      text: aiResponse,
-    };
+      if (remaining) {
+        aiResponse += remaining;
 
-    return updated;
-  });
-}
+        setMessages((prev) => {
+          const updated = [...prev];
 
+          const lastMessage = updated[updated.length - 1];
+
+          if (lastMessage?.role === "ai") {
+            updated[updated.length - 1] = {
+              role: "ai",
+              text: aiResponse,
+            };
+          }
+
+          return updated;
+        });
+      }
     } catch (error) {
       console.error("Gemini error:", error);
 
@@ -179,7 +190,10 @@ if (remaining) {
         ...prev,
         {
           role: "ai",
-          text: "Sorry, something went wrong. Please try again.",
+          text:
+            error instanceof Error
+              ? `Sorry, something went wrong: ${error.message}`
+              : "Sorry, something went wrong.",
         },
       ]);
     } finally {
@@ -220,7 +234,7 @@ if (remaining) {
                   Online
                 </div>
               </div>
-      
+
               <div className="chat-header-actions">
                 <button
                   className="chat-clear"
@@ -255,22 +269,23 @@ if (remaining) {
                 </div>
               )}
 
-             {messages.map((message, index) => (
-  <div
-    key={index}
-    className={`chat-message ${
-      message.role === "user"
-        ? "chat-message-user"
-        : "chat-message-ai"
-    }`}
-  >
-    {message.role === "ai" ? (
-      <MessageContent content={message.text} />
-    ) : (
-      message.text
-    )}
-  </div>
-))}
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`chat-message ${
+                    message.role === "user"
+                      ? "chat-message-user"
+                      : "chat-message-ai"
+                  }`}
+                >
+                  {message.role === "ai" ? (
+                    <MessageContent content={message.text} />
+                  ) : (
+                    message.text
+                  )}
+                </div>
+              ))}
+
               {loading && (
                 <div className="chat-message chat-message-ai typing">
                   <span></span>
@@ -280,7 +295,6 @@ if (remaining) {
               )}
 
               <div ref={messagesEndRef} />
-
             </div>
 
             {/* Input */}
