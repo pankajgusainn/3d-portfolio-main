@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./ChatBot.css";
 import MessageContent from "./components/chat/MessageContent";
 
@@ -41,6 +41,37 @@ const ChatBot = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatWindowRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+  messagesEndRef.current?.scrollIntoView({
+    behavior: "smooth",
+  });
+}, [messages, loading]);
+
+useEffect(() => {
+  if (!open) return;
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      chatWindowRef.current &&
+      !chatWindowRef.current.contains(event.target as Node)
+    ) {
+      setOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [open]);
+
+  const clearChat = () => {
+  setMessages([]);
+  setInput("");
+};
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -130,7 +161,7 @@ setMessages((prev) => [
       {/* Fullscreen chat overlay */}
       {open && (
         <div className="chat-overlay">
-          <div className="chat-window">
+          <div className="chat-window" ref={chatWindowRef}>
             {/* Header */}
             <div className="chat-header">
               <div className="chat-header-left">
@@ -141,14 +172,24 @@ setMessages((prev) => [
                   Online
                 </div>
               </div>
+      
+              <div className="chat-header-actions">
+                <button
+                  className="chat-clear"
+                  onClick={clearChat}
+                  aria-label="Clear chat"
+                >
+                  Clear
+                </button>
 
-              <button
-                className="chat-close"
-                onClick={() => setOpen(false)}
-                aria-label="Close AI chat"
-              >
-                ×
-              </button>
+                <button
+                  className="chat-close"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close AI chat"
+                >
+                  ×
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
@@ -189,6 +230,9 @@ setMessages((prev) => [
                   <span></span>
                 </div>
               )}
+
+              <div ref={messagesEndRef} />
+
             </div>
 
             {/* Input */}
